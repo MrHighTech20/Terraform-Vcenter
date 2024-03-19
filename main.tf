@@ -11,16 +11,16 @@ data "vsphere_datacenter" "dc" {
   name = "MVRC-DC"
 }
 
-# If you was one cluse, set here
-data "vsphere_cluster" "cluster" {
-  name          = "Xeon"
-  datacenter_id = data.vsphere_datacenter.dc.id
-}
+## If you was one cluse, set here
+#data "vsphere_datastore_cluster" "datastore_cluster" {
+#  name          = "Xeon"
+#  datacenter_id = data.vsphere_datacenter.dc.id
+#}
 
 # Set parameters for your VM
 resource "vsphere_virtual_machine" "ubuntu_vm" {
   name             = "UbuntuServer"
-  resource_pool_id = data.vsphere_cluster.cluster.resource_pool_id
+  #resource_pool_id = data.vsphere_cluster.cluster.resource_pool_id
   datastore_id     = "ESX2"
   folder           = "Ubuntu_Server"
 
@@ -49,6 +49,9 @@ resource "vsphere_virtual_machine" "ubuntu_vm" {
 
   # Adicione a chave pública à VM
   provisioner "file" {
-    source      = "C:\\Users\\marco\\.ssh\\id_rsa"
+    source      = "/root/.ssh/id_rsa"
     destination = "/home/ubuntu/.ssh/authorized_keys"
+  }
 }
+
+
