@@ -1,9 +1,9 @@
 # main.tf
 # Configure you provider, in this case one server vcenter (vsphere)
 provider "vsphere" {
-  user           = "adminstrator@mvrc.local"
-  password       = "Mvrc#2022"
-  vsphere_server = "192.168.31.13"
+  user           = ""
+  password       = ""
+  vsphere_server = ""
 }
 
 # Set your datacenter created on vcenter
