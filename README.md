@@ -13,8 +13,6 @@ Before you begin, ensure you have the following:
 - [Terraform](https://developer.hashicorp.com/terraform/install) installed
 - Access to a VMware vCenter Server
 
-Access to a VMware vCenter Server
-A Vagrant box for your desired OS
 
 ## Steps
 
@@ -23,22 +21,4 @@ A Vagrant box for your desired OS
    Create a new directory for your Terraform project. Open your terminal and initialize the repository with the command:
 
 
-2. **Edit Vagrantfile**
-
-```bash
-  
-```
 Replace all placeholders with your actual values.
-
-3. **Troubleshooting**
-
-If you encounter issues with the vSphere provider settings, double-check your vSphere server credentials, permissions, and network configurations.
-
-For more details on Vagrant and the vSphere provider, refer to the official documentation.
-At the moment, the VM is created using a template that was created before. After creating the virtual machine, Vagrant tried to create a connection using SSH, but the following message returns:
-
-```bash
-default: SSH auth method: private key 
-default: Warning: Authentication failure. Retrying...
-```
-The virtual machine is running but with unfinished config, because the SSH is not working.
