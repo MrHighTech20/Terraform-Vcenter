@@ -39,7 +39,7 @@ data "vsphere_datastore" "iso_datastore" {
 }
 
 resource "vsphere_virtual_machine" "vm_iso" {
-  name             = "${var.vm_name}-${timestamp()}" // Nome único para a VM
+  name             = var.vm_name // Nome único para a VM
   resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.cpu_count
