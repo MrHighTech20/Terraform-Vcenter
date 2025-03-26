@@ -1,74 +1,74 @@
-// Define um recurso para criar uma máquina virtual no vSphere usando o cloud-init
+// Define a resource to create a virtual machine in vSphere using cloud-init
 resource "vsphere_virtual_machine" "vm_cloud_init" {
-  // Nome da máquina virtual
+  // Name of the virtual machine
   name             = var.vm_name
 
-  // ID do resource pool onde a VM será criada
+  // ID of the resource pool where the VM will be created
   resource_pool_id = data.vsphere_resource_pool.pool.id
 
-  // ID do datastore onde os discos da VM serão armazenados
+  // ID of the datastore where the VM's disks will be stored
   datastore_id     = data.vsphere_datastore.datastore.id
 
-  // Configuração de hardware: número de CPUs e quantidade de memória
+  // Hardware configuration: number of CPUs and amount of memory
   num_cpus         = var.cpu_count
   memory           = var.memory_size
 
-  // Identificador do sistema operacional convidado (guest OS)
+  // Identifier for the guest operating system (guest OS)
   guest_id         = var.guest_id
 
-  // Configuração da interface de rede
+  // Network interface configuration
   network_interface {
-    // ID da rede onde a VM será conectada
+    // ID of the network where the VM will be connected
     network_id   = data.vsphere_network.network.id
 
-    // Tipo de adaptador de rede
+    // Type of network adapter
     adapter_type = "vmxnet3"
   }
 
-  // Configuração do disco principal da VM
+  // Configuration for the primary disk of the VM
   disk {
-    // Rótulo do disco
+    // Label for the disk
     label            = "disk0"
 
-    // Tamanho do disco em GB
+    // Size of the disk in GB
     size             = var.disk_size
 
-    // Configurações adicionais do disco
-    eagerly_scrub    = false
-    thin_provisioned = true
-    unit_number      = 0
+    // Additional disk configurations
+    eagerly_scrub    = false // Do not allocate disk space immediately
+    thin_provisioned = true  // Use thin provisioning
+    unit_number      = 0     // Disk unit number
   }
 
-  // Configuração do CD-ROM para carregar uma ISO
+  // Configuration for the CD-ROM to load an ISO
   cdrom {
-    // ID do datastore onde a ISO está localizada
+    // ID of the datastore where the ISO is located
     datastore_id = data.vsphere_datastore.iso_datastore.id
 
-    // Caminho para a ISO no datastore
+    // Path to the ISO in the datastore
     path         = "ISOs/ubuntu-24.04.1-live-server-amd64.iso"
   }
 
-  // Configuração do cloud-init para personalizar a VM durante a inicialização
+  // Cloud-init configuration to customize the VM during initialization
   extra_config = {
-    // Passa os dados do cloud-init como uma string codificada em base64
+    // Passes the cloud-init data as a base64-encoded string
     "guestinfo.userdata"      = base64encode(templatefile("${path.module}/cloud-init.tpl", {
-      // Variáveis usadas no arquivo cloud-init.tpl
+      // Variables used in the cloud-init.tpl file
       initial_username = var.initial_username,
       initial_password = var.initial_password,
       timezone         = var.timezone
     }))
 
-    // Especifica que os dados do cloud-init estão codificados em base64
+    // Specifies that the cloud-init data is base64 encoded
     "guestinfo.userdata.encoding" = "base64"
   }
 
-  // Configuração de atraso no boot e firmware da VM
-  boot_delay = 10000 // Atraso de 10 segundos no boot
-  firmware   = "bios" // Usa BIOS como firmware
+  // Boot delay and firmware configuration for the VM
+  boot_delay = 10000 // Boot delay of 10 seconds
+  firmware   = "bios" // Use BIOS as the firmware
 }
 
-// Output para verificar o nome da máquina virtual criada
+// Output block to verify the name of the created virtual machine
 output "vm_cloud_init_name" {
-  // Exibe o nome da máquina virtual criada
+  // Displays the name of the created virtual machine
   value = vsphere_virtual_machine.vm_cloud_init.name
 }
