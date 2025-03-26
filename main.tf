@@ -33,14 +33,13 @@ data "vsphere_resource_pool" "pool" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
-# Adicione um novo data source para o datastore do ISO
 data "vsphere_datastore" "iso_datastore" {
-  name          = "ESXI_1"  # Nome do datastore onde está o ISO
+  name          = "ESXI_1"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
 resource "vsphere_virtual_machine" "vm_iso" {
-  name             = var.vm_name
+  name             = "${var.vm_name}-${timestamp()}" // Nome único para a VM
   resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.cpu_count
@@ -61,25 +60,23 @@ resource "vsphere_virtual_machine" "vm_iso" {
   }
 
   cdrom {
-    # Use o datastore do ISO específico
     datastore_id = data.vsphere_datastore.iso_datastore.id
     path         = "ISOs/ubuntu-24.04.1-live-server-amd64.iso"
   }
 
-  # Configurações avançadas de boot
   extra_config = {
-    "bios.bootDeviceClasses"      = "allow:cd"
-    "disk.EnableUUID"             = "TRUE"
-    "firmware"                    = "bios"
-    "bootorder.firstdevice"       = "cdrom"
-    "config.defaultBootDeviceType" = "cd"
-    "config.bootRetry.enabled"    = "TRUE"
-    "config.bootRetry.delay"      = "5"
+    "guestinfo.userdata"      = base64encode(templatefile("${path.module}/cloud-init.tpl", {
+      vm_username    = var.vm_username,
+      vm_password    = var.vm_password,
+      timezone       = var.timezone,
+      initial_username = var.initial_username,
+      initial_password = var.initial_password
+    }))
+    "guestinfo.userdata.encoding" = "base64"
   }
 
-  # Configurações de boot
-  boot_delay     = 10000  # 10 segundos de delay
-  firmware       = "bios"
+  boot_delay = 10000
+  firmware   = "bios"
 }
 
 # Outputs para debug
