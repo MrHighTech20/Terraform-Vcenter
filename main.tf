@@ -75,18 +75,6 @@ resource "vsphere_virtual_machine" "vm_iso" {
     path         = "ISOs/ubuntu-24.04.1-live-server-amd64.iso" // Path to the ISO file
   }
 
-  // Cloud-init configuration to customize the VM during initialization
-  extra_config = {
-    "guestinfo.userdata"      = base64encode(templatefile("${path.module}/cloud-init.tpl", {
-      vm_username    = var.vm_username,         // Username for the VM
-      vm_password    = var.vm_password,         // Password for the VM
-      timezone       = var.timezone,            // Timezone for the VM
-      initial_username = var.initial_username,  // Initial username for the VM
-      initial_password = var.initial_password   // Initial password for the VM
-    }))
-    "guestinfo.userdata.encoding" = "base64"    // Specifies that the userdata is base64 encoded
-  }
-
   boot_delay = 10000 // Boot delay in milliseconds (10 seconds)
   firmware   = "bios" // Use BIOS as the firmware
 }
