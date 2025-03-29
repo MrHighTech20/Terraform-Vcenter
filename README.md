@@ -38,13 +38,13 @@ Before you begin, ensure you have the following:
 
 If you have DNS on your VCenter, put its name instead of the IP.
 
-Now your VCenter credencials it's save and don't need to set in your code.
+Now your VCenter credentials they are saved and you don't need to set in your code.
 
 4. **Create main file**
 
-   Next step you need create main.tf file, in this file you need set parameters to create a VM. I set this parameters in my main.tf:
+   In the next step, you need to create main.tf file, in this file you need to set parameters to create a VM. I set this parameters in my main.tf:
 
-     - Provider;
+      - Provider;
       - Define parameters to connect of VCenter serve, with the same variables names sets on my OS;
       - VCenter data center;
       - Data store where VM will create;
