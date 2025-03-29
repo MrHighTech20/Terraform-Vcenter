@@ -45,12 +45,12 @@ Now your VCenter credentials they are saved and you don't need to set in your co
    In the next step, you need to create main.tf file, in this file you need to set parameters to create a VM. I set this parameters in my main.tf:
 
       - Provider;
-      - Define parameters to connect of VCenter serve, with the same variables names sets on my OS;
+      - Define parameters to connect on VCenter serve, with the same variables names sets on my OS;
       - VCenter data center;
-      - Data store where VM will create;
-      - Network interface, my VCenter use vmxnet3;
-      - Resorce pool;
-      - Datastore where find .iso file to create VM;
+      - Data store where VM will be created;
+      - Network interface, my VCenter uses vmxnet3;
+      - Resource pool;
+      - Datastore where you find .iso file to create VM;
       - Resources that my VM will need (VM name, CPU, memory, Datastore size)
       - CD-ROM config to use .iso file
       - Boot delay to mount CD-ROM
