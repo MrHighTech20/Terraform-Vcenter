@@ -22,7 +22,7 @@ Before you begin, ensure you have the following:
 
 2. **Install Terraform**
 
-   You need to access officialy page of Terraform and following the steps to install in your computer.
+   You need to access the official page of Terraform and follow the steps to install it in your computer.
 
 3. **Set your environment variables with your VCenter credentials**
 
