@@ -16,13 +16,13 @@ Before you begin, ensure you have the following:
 
 ## Steps
 
-1. **Opitional - install WSL 2**
+1. **Optional - install WSL 2**
 
    I used Linux with WSL because I find it easier, but you can use any OS.
 
 2. **Install Terraform**
 
-   You need access officialy page of Terraform and following the steps to install in your computer.
+   You need to access officialy page of Terraform and following the steps to install in your computer.
 
 3. **Set your environment variables with your VCenter credentials**
 
