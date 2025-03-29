@@ -1,5 +1,5 @@
 # Terraform-Vcenter
-Create virtual machines using terraform
+How to create virtual machines using terraform
 
 Hey everyone. I created a Terraform file to use with a vSphere (vCenter server) without template. but after you need config VM, for example I used Ubuntu Server 24. 
 
