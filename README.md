@@ -165,7 +165,15 @@ Now your VCenter credentials they are saved and you don't need to set in your co
    }
    ```
 
-   
+  After you modify main.tf, with you credencials. You need to create a new file Variable.tf, when you will set the variables was defined in main.tf.
+
+  To finished you need run the commands:
+
+   ```bash
+   terraform init
+   terraform plan
+   terraform apply
+```
 
     
 
