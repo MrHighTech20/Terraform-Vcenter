@@ -19,7 +19,7 @@ Before you begin, ensure you have the following:
 
 ### 1. **Optional - Install WSL 2**
 If you're using Windows, you can install WSL 2 to run Linux. However, Terraform works on any OS, so this step is optional.
-
+Follow Microsoft documentation for installing WS2 - https://learn.microsoft.com/en-us/windows/wsl/install
 ---
 
 ### 2. **Install Terraform**
